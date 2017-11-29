@@ -1,0 +1,538 @@
+/*	XOP-specific resources for MultiClamp700xCommander on Windows
+
+	This file is compiled by the resource compiler and creates XOP-specific
+	resources that IGOR looks for in an XOP module.
+
+	Copyright 2017 WaveMetrics, Inc.
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+	and associated documentation files (the "Software"), to deal in the Software without restriction,
+	including without limitation the rights to use, copy, modify, merge, publish, distribute,
+	sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
+	is furnished to do so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included
+	in all copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+	INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+	PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+	HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+	CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+	OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+#include "XOPResources.h"			// Defines XOP-specific symbols.
+
+1100 STR#					// Custom error messages.
+BEGIN
+	// Symbols from MultiClamp700xCommander.h.
+	"MultiClamp700xCommander requires Igor 8.00 or later.\0",			// OLD_IGOR
+	"Unused_1\0",			// UNUSED_!
+	"The API version supported by the AxMultiClampMsg.dll file is not supported by the MultiClamp700xCommander XOP.\0", // WRONG_MCC_API_VERSION
+	"The MultiClamp700xCommander XOP was unable to create a MCC DLL handle.\0", // FAILURE_CREATING_MCC_DLL_HANDLE
+	"The MultiClamp700xCommander DLL handle was NULL.\0",		// MCC_DLL_HANDLE_IS_NULL
+	"ChannelID, COMPortID, and DeviceID parameters must be valid numbers.\0",		// NO_NAN_OR_INFS_ALLOWED
+	"Invalid MultiClamp serial number.\0",		// INVALID_SERIAL_NUMBER
+	"Triggered a BUG message in MultiClamp700xCommander XOP.\0",		// MCC_XOP_BUG
+
+	// MCCMSG Errors
+	"Out of memory.\0",												//	XOP_MCCMSG_ERROR_OUTOFMEMORY
+	"The MultiClamp Commander application is not open or MCC_FindServes needs to be called first.\0",			//	XOP_MCCMSG_ERROR_MCCNOTOPEN
+	"Invalid DLL handle.\0",										//	XOP_MCCMSG_ERROR_INVALIDDLLHANDLE
+	"Invalid parameter.\0",											//	XOP_MCCMSG_ERROR_INVALIDPARAMETER
+	"Message timeout.\0",											//	XOP_MCCMSG_ERROR_MSGTIMEOUT
+	"MultiClamp Commander command failure.\0",						//	XOP_MCCMSG_ERROR_MCCCOMMANDFAIL
+
+	// You can add error messages here.
+
+	0,								// NOTE: 0 required to terminate the resource.
+END
+
+/* no menu item */
+
+1100 XOPI							// XOPI - Describes general XOP properties to IGOR.
+BEGIN
+	XOP_VERSION,					// Version number of host XOP system.
+	DEV_SYS_CODE,					// Code for development system used to make XOP.
+	XOP_FEATURE_FLAGS,				// Tells Igor about XOP features.
+	XOPI_RESERVED,					// Reserved - must be zero.
+	XOP_TOOLKIT_VERSION				// XOP Toolkit version.
+END
+
+1100 XOPC									// Operations added by XOP.
+BEGIN
+"MCC_FindServers\0",					// Name of operation.
+XOPOp | utilOp | compilableOp | ioOp	// Operation category specifier.
+
+"\0"									// NOTE: NULL required to terminate the resource.
+END
+
+
+1100 XOPF							// Describes functions added by XOP to IGOR.
+BEGIN
+	// FX_MCC_SetTimeoutMs
+	"MCC_SetTimeoutMs\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_SelectMultiClamp700B
+	"MCC_SelectMultiClamp700B\0",		// Function name.
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category,
+	NT_FP64,						// Return value type.
+		HSTRING_TYPE,				// p1: serial number string
+		NT_FP64,					// p2: ChannelID number
+		0,							// NOTE: 0 required to terminate list of parameter types.
+
+	////////////////
+	// Holding
+	////////////////
+	// FX_MCC_SetHoldingEnable
+	"MCC_SetHoldingEnable\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetHoldingEnable
+	"MCC_GetHoldingEnable\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_SetHolding
+	"MCC_SetHolding\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetHolding
+	"MCC_GetHolding\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,									// 0 terminates list of parameter types.
+
+	////////////////
+	// Amplifier Mode
+	////////////////
+	// FX_MCC_SetMode
+	"MCC_SetMode\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetMode
+	"MCC_GetMode\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+
+	////////////////
+	// Bridge Balance
+	////////////////
+	// FX_MCC_SetBridgeBalEnable
+	"MCC_SetBridgeBalEnable\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetBridgeBalEnable
+	"MCC_GetBridgeBalEnable\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_SetBridgeBalResist
+	"MCC_SetBridgeBalResist\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetBridgeBalResist
+	"MCC_GetBridgeBalResist\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_AutoBridgeBal
+	"MCC_AutoBridgeBal\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+
+	////////////////
+	// Pipette Capacitance Neutralization
+	////////////////
+	// FX_MCC_SetNeutralizationEnable
+	"MCC_SetNeutralizationEnable\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetNeutralizationEnable
+	"MCC_GetNeutralizationEnable\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_SetNeutralizationCap
+	"MCC_SetNeutralizationCap\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetNeutralizationCap
+	"MCC_GetNeutralizationCap\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	////////////////
+	// Whole Cell Compensation
+	////////////////
+	// FX_MCC_SetWholeCellCompEnable
+	"MCC_SetWholeCellCompEnable\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetWholeCellCompEnable
+	"MCC_GetWholeCellCompEnable\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_SetWholeCellCompCap
+	"MCC_SetWholeCellCompCap\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetWholeCellCompCap
+	"MCC_GetWholeCellCompCap\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_SetWholeCellCompResist
+	"MCC_SetWholeCellCompResist\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetWholeCellCompResist
+	"MCC_GetWholeCellCompResist\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_AutoWholeCellComp
+	"MCC_AutoWholeCellComp\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,									// 0 terminates list of parameter types.
+
+	////////////////
+	// Series Resistance Compensation
+	////////////////
+	// FX_MCC_SetRsCompEnable
+	"MCC_SetRsCompEnable\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetRsCompEnable
+	"MCC_GetRsCompEnable\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_SetRsCompBandwidth
+	"MCC_SetRsCompBandwidth\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetRsCompBandwidth
+	"MCC_GetRsCompBandwidth\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_SetRsCompCorrection
+	"MCC_SetRsCompCorrection\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetRsCompCorrection
+	"MCC_GetRsCompCorrection\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_SetRsCompPrediction
+	"MCC_SetRsCompPrediction\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetRsCompPrediction
+	"MCC_GetRsCompPrediction\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	////////////////
+	// Oscillation Killer
+	////////////////
+	// FX_MCC_SetOscKillerEnable
+	"MCC_SetOscKillerEnable\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetOscKillerEnable
+	"MCC_GetOscKillerEnable\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	////////////////
+	// Primary (Scaled) Signal
+	////////////////
+	// FX_MCC_SetPrimarySignalGain
+	"MCC_SetPrimarySignalGain\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetPrimarySignalGain
+	"MCC_GetPrimarySignalGain\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_SetPrimarySignalLPF
+	"MCC_SetPrimarySignalLPF\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetPrimarySignalLPF
+	"MCC_GetPrimarySignalLPF\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_SetPrimarySignalHPF
+	"MCC_SetPrimarySignalHPF\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetPrimarySignalHPF
+	"MCC_GetPrimarySignalHPF\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	////////////////
+	// Secondary (Raw) Signal
+	////////////////
+	// FX_MCC_SetSecondarySignalGain
+	"MCC_SetSecondarySignalGain\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetSecondarySignalGain
+	"MCC_GetSecondarySignalGain\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_SetSecondarySignalLPF
+	"MCC_SetSecondarySignalLPF\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetSecondarySignalLPF
+	"MCC_GetSecondarySignalLPF\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	////////////////
+	// Pipette Offset
+	////////////////
+	// FX_MCC_AutoPipetteOffset
+	"MCC_AutoPipetteOffset\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_SetPipetteOffset
+	"MCC_SetPipetteOffset\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetPipetteOffset
+	"MCC_GetPipetteOffset\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	////////////////
+	// Fast and Slow Compensation
+	////////////////
+	// FX_MCC_SetFastCompCap
+	"MCC_SetFastCompCap\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetFastCompCap
+	"MCC_GetFastCompCap\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_SetSlowCompCap
+	"MCC_SetSlowCompCap\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetSlowCompCap
+	"MCC_GetSlowCompCap\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_SetFastCompTau
+	"MCC_SetFastCompTau\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetFastCompTau
+	"MCC_GetFastCompTau\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_SetSlowCompTau
+	"MCC_SetSlowCompTau\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetSlowCompTau
+	"MCC_GetSlowCompTau\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_SetSlowCompTauX20Enable
+	"MCC_SetSlowCompTauX20Enable\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetSlowCompTauX20Enable
+	"MCC_GetSlowCompTauX20Enable\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_AutoFastComp
+	"MCC_AutoFastComp\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_AutoSlowComp
+	"MCC_AutoSlowComp\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,									// 0 terminates list of parameter types.
+
+	////////////////
+	// Slow Current Injection
+	////////////////
+	// FX_MCC_SetSlowCurrentInjEnable
+	"MCC_SetSlowCurrentInjEnable\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetSlowCurrentInjEnable
+	"MCC_GetSlowCurrentInjEnable\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_SetSlowCurrentInjLevel
+	"MCC_SetSlowCurrentInjLevel\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetSlowCurrentInjLevel
+	"MCC_GetSlowCurrentInjLevel\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+	// FX_MCC_SetSlowCurrentInjSetlTime
+	"MCC_SetSlowCurrentInjSetlTime\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	NT_FP64,							// Parameter 1 type
+	0,									// 0 terminates list of parameter types.
+
+	// FX_MCC_GetSlowCurrentInjSetlTime
+	"MCC_GetSlowCurrentInjSetlTime\0",				// Function name
+	F_UTIL | F_EXTERNAL | F_IO,			// Function category
+	NT_FP64,							// Return type is double precision
+	0,
+
+
+	// More function descriptions can appear here.
+
+	0,								// NOTE: 0 required to terminate the resource.
+END
