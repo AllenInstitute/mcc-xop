@@ -242,8 +242,6 @@ extern "C" void XOPEntry(void)
 
 HOST_IMPORT int XOPMain(IORecHandle ioRecHandle)			// The use of XOPMain rather than main means this XOP requires Igor Pro 6.20 or later
 {
-	int err = 0;
-
 	XOPInit(ioRecHandle);					// Do standard XOP initialization
 	SetXOPEntry(XOPEntry);					// Set entry point for future calls
 
@@ -252,9 +250,9 @@ HOST_IMPORT int XOPMain(IORecHandle ioRecHandle)			// The use of XOPMain rather 
 		return EXIT_FAILURE;
 	}
 
-	// Register the XOP's operations.
-	if (err = RegisterOperations()) {
-		SetXOPResult(err);
+  // Register the XOP's operations.
+	if (int ret = RegisterOperations()) {
+		SetXOPResult(ret);
 		return EXIT_FAILURE;
 	}
 
