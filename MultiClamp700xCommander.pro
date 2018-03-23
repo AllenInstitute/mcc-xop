@@ -88,17 +88,6 @@ WIN_CUSTOM_RESOURCE = src/MultiClamp700xCommanderWinCustom.rc
 OTHER_FILES += $${WIN_RESOURCE}
 OTHER_FILES += $${WIN_CUSTOM_RESOURCE}
 
-
-# Additional libraries to link. XOP support and Igor libraries
-# are added later.
-QMAKE_LIBDIR += $$quote($$PWD/src/AxMultiClampMsg_SDK)
-LIBS += AxMultiClampMsg.lib
-
-# Copy the AxMultiClampMsg.dll file to the output directory
-# after the link stage is complete.
-QMAKE_POST_LINK += copy /y $${shell_path($$PWD/src/AxMultiClampMsg_SDK)}\\AxMultiClampMsg.dll $${shell_path($$quote($${DESTDIR}))}
-
-
 # These definitions indicate that the XOP supports long wave names.
 RC_DEFINES += XOP_LONG_NAMES_AND_PATHS=1	# For the resource compiler (windows only)
 DEFINES += XOP_LONG_NAMES_AND_PATHS=1		# For the C/C++ compiler.
