@@ -155,16 +155,11 @@ QMAKE_CXXFLAGS += -Gd
 # QMAKE_CFLAGS_RELEASE -= -MD
 # QMAKE_CXXFLAGS_RELEASE -= -MD
 
-# -Zc:strictStrings causes compiler errors with VC2013 and XOP Toolkit 6. It may be fixed in Tookit 7, in which
-# case we could remove the next two lines.
-QMAKE_CFLAGS_RELEASE -= -Zc:strictStrings
-QMAKE_CXXFLAGS_RELEASE -= -Zc:strictStrings
 
 # Linker flags
 QMAKE_LFLAGS_DEBUG += /NODEFAULTLIB:libcmt	# Using this flag in release mode results in lots of linker errors.
 QMAKE_LFLAGS += /LARGEADDRESSAWARE	# XOP Toolkit documentation says to add this
 QMAKE_LFLAGS += /DYNAMICBASE:NO
-
 
 # External libraries
 QMAKE_LIBDIR += $${XOPSUPPORT_PATH}
