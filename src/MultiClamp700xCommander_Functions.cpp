@@ -75,147 +75,141 @@ int Generic_ReturnDouble_Wrapper(MCC_ReturnDouble_Params* p, MCCFunctions mccFx)
 
 		switch (mccFx) {
 		case FX_MCC_GetHoldingEnable:
-			mccdll_BoolParam_Function = &MCCMSG_GetHoldingEnable;
+			mccdll_BoolParam_Function = MCCMSG_GetHoldingEnable_FuncPtr;
 			break;
 
 		case FX_MCC_GetHolding:
-			mccdll_DoubleParam_Function = &MCCMSG_GetHolding;
+			mccdll_DoubleParam_Function = MCCMSG_GetHolding_FuncPtr;
 			break;
-
 
 		case FX_MCC_GetMode:
-			mccdll_UINTParam_Function = &MCCMSG_GetMode;
+			mccdll_UINTParam_Function = MCCMSG_GetMode_FuncPtr;
 			break;
 
-
 		case FX_MCC_GetBridgeBalEnable:
-			mccdll_BoolParam_Function = &MCCMSG_GetBridgeBalEnable;
+			mccdll_BoolParam_Function = MCCMSG_GetBridgeBalEnable_FuncPtr;
 			break;
 
 		case FX_MCC_GetBridgeBalResist:
-			mccdll_DoubleParam_Function = &MCCMSG_GetBridgeBalResist;
+			mccdll_DoubleParam_Function = MCCMSG_GetBridgeBalResist_FuncPtr;
 			break;
 
 		case FX_MCC_AutoBridgeBal:
-			mccdll_NoParam_Function = &MCCMSG_AutoBridgeBal;
+			mccdll_NoParam_Function = MCCMSG_AutoBridgeBal_FuncPtr;
 			break;
 
-
 		case FX_MCC_GetNeutralizationEnable:
-			mccdll_BoolParam_Function = &MCCMSG_GetNeutralizationEnable;
+			mccdll_BoolParam_Function = MCCMSG_GetNeutralizationEnable_FuncPtr;
 			break;
 
 		case FX_MCC_GetNeutralizationCap:
-			mccdll_DoubleParam_Function = &MCCMSG_GetNeutralizationCap;
+			mccdll_DoubleParam_Function = MCCMSG_GetNeutralizationCap_FuncPtr;
 			break;
 
 
 		case FX_MCC_GetWholeCellCompEnable:
-			mccdll_BoolParam_Function = &MCCMSG_GetWholeCellCompEnable;
+			mccdll_BoolParam_Function = MCCMSG_GetWholeCellCompEnable_FuncPtr;
 			break;
 
 		case FX_MCC_GetWholeCellCompCap:
-			mccdll_DoubleParam_Function = &MCCMSG_GetWholeCellCompCap;
+			mccdll_DoubleParam_Function = MCCMSG_GetWholeCellCompCap_FuncPtr;
 			break;
 
 		case FX_MCC_GetWholeCellCompResist:
-			mccdll_DoubleParam_Function = &MCCMSG_GetWholeCellCompResist;
+			mccdll_DoubleParam_Function = MCCMSG_GetWholeCellCompResist_FuncPtr;
 			break;
 
 		case FX_MCC_AutoWholeCellComp:
-			mccdll_NoParam_Function = &MCCMSG_AutoWholeCellComp;
+			mccdll_NoParam_Function = MCCMSG_AutoWholeCellComp_FuncPtr;
 			break;
 
-
 		case FX_MCC_GetRsCompEnable:
-			mccdll_BoolParam_Function = &MCCMSG_GetRsCompEnable;
+			mccdll_BoolParam_Function = MCCMSG_GetRsCompEnable_FuncPtr;
 			break;
 
 		case FX_MCC_GetRsCompBandwidth:
-			mccdll_DoubleParam_Function = &MCCMSG_GetRsCompBandwidth;
+			mccdll_DoubleParam_Function = MCCMSG_GetRsCompBandwidth_FuncPtr;
 			break;
 
 		case FX_MCC_GetRsCompCorrection:
-			mccdll_DoubleParam_Function = &MCCMSG_GetRsCompCorrection;
+			mccdll_DoubleParam_Function = MCCMSG_GetRsCompCorrection_FuncPtr;
 			break;
 
 		case FX_MCC_GetRsCompPrediction:
-			mccdll_DoubleParam_Function = &MCCMSG_GetRsCompPrediction;
+			mccdll_DoubleParam_Function = MCCMSG_GetRsCompPrediction_FuncPtr;
 			break;
 
 		case FX_MCC_GetOscKillerEnable:
-			mccdll_BoolParam_Function = &MCCMSG_GetOscKillerEnable;
+			mccdll_BoolParam_Function = MCCMSG_GetOscKillerEnable_FuncPtr;
 			break;
 
 		case FX_MCC_GetPrimarySignalGain:
-			mccdll_DoubleParam_Function = &MCCMSG_GetPrimarySignalGain;
+			mccdll_DoubleParam_Function = MCCMSG_GetPrimarySignalGain_FuncPtr;
 			break;
 
 		case FX_MCC_GetPrimarySignalLPF:
-			mccdll_DoubleParam_Function = &MCCMSG_GetPrimarySignalLPF;
+			mccdll_DoubleParam_Function = MCCMSG_GetPrimarySignalLPF_FuncPtr;
 			break;
 
 		case FX_MCC_GetPrimarySignalHPF:
-			mccdll_DoubleParam_Function = &MCCMSG_GetPrimarySignalHPF;
+			mccdll_DoubleParam_Function = MCCMSG_GetPrimarySignalHPF_FuncPtr;
 			break;
 
 		case FX_MCC_GetSecondarySignalGain:
-			mccdll_DoubleParam_Function = &MCCMSG_GetSecondarySignalGain;
+			mccdll_DoubleParam_Function = MCCMSG_GetSecondarySignalGain_FuncPtr;
 			break;
 
 		case FX_MCC_GetSecondarySignalLPF:
-			mccdll_DoubleParam_Function = &MCCMSG_GetSecondarySignalLPF;
+			mccdll_DoubleParam_Function = MCCMSG_GetSecondarySignalLPF_FuncPtr;
 			break;
 
 		case FX_MCC_AutoPipetteOffset:
-			mccdll_NoParam_Function = &MCCMSG_AutoPipetteOffset;
+			mccdll_NoParam_Function = MCCMSG_AutoPipetteOffset_FuncPtr;
 			break;
 
 		case FX_MCC_GetPipetteOffset:
-			mccdll_DoubleParam_Function = &MCCMSG_GetPipetteOffset;
+			mccdll_DoubleParam_Function = MCCMSG_GetPipetteOffset_FuncPtr;
 			break;
 
 		case FX_MCC_GetFastCompCap:
-			mccdll_DoubleParam_Function = &MCCMSG_GetFastCompCap;
+			mccdll_DoubleParam_Function = MCCMSG_GetFastCompCap_FuncPtr;
 			break;
 
 		case FX_MCC_GetSlowCompCap:
-			mccdll_DoubleParam_Function = &MCCMSG_GetSlowCompCap;
+			mccdll_DoubleParam_Function = MCCMSG_GetSlowCompCap_FuncPtr;
 			break;
 
 		case FX_MCC_GetFastCompTau:
-			mccdll_DoubleParam_Function = &MCCMSG_GetFastCompTau;
+			mccdll_DoubleParam_Function = MCCMSG_GetFastCompTau_FuncPtr;
 			break;
 
 		case FX_MCC_GetSlowCompTau:
-			mccdll_DoubleParam_Function = &MCCMSG_GetSlowCompTau;
+			mccdll_DoubleParam_Function = MCCMSG_GetSlowCompTau_FuncPtr;
 			break;
 
 		case FX_MCC_GetSlowCompTauX20Enable:
-			mccdll_BoolParam_Function = &MCCMSG_GetSlowCompTauX20Enable;
+			mccdll_BoolParam_Function = MCCMSG_GetSlowCompTauX20Enable_FuncPtr;
 			break;
 
 		case FX_MCC_AutoFastComp:
-			mccdll_NoParam_Function = &MCCMSG_AutoFastComp;
+			mccdll_NoParam_Function = MCCMSG_AutoFastComp_FuncPtr;
 			break;
 
 		case FX_MCC_AutoSlowComp:
-			mccdll_NoParam_Function = &MCCMSG_AutoSlowComp;
+			mccdll_NoParam_Function = MCCMSG_AutoSlowComp_FuncPtr;
 			break;
 
 		case FX_MCC_GetSlowCurrentInjEnable:
-			mccdll_BoolParam_Function = &MCCMSG_GetSlowCurrentInjEnable;
+			mccdll_BoolParam_Function = MCCMSG_GetSlowCurrentInjEnable_FuncPtr;
 			break;
 
 		case FX_MCC_GetSlowCurrentInjLevel:
-			mccdll_DoubleParam_Function = &MCCMSG_GetSlowCurrentInjLevel;
+			mccdll_DoubleParam_Function = MCCMSG_GetSlowCurrentInjLevel_FuncPtr;
 			break;
 
 		case FX_MCC_GetSlowCurrentInjSetlTime:
-			mccdll_DoubleParam_Function = &MCCMSG_GetSlowCurrentInjSettlingTime;
+			mccdll_DoubleParam_Function = MCCMSG_GetSlowCurrentInjSettlingTime_FuncPtr;
 			break;
-
-
 
 		default:
 			// Should never get here.
@@ -242,10 +236,10 @@ int Generic_ReturnDouble_Wrapper(MCC_ReturnDouble_Params* p, MCCFunctions mccFx)
 			// This appears to be a bug. To work around the bug, we check the mode
 			// and, if necessary, flip the sign. Obviously, we only do this when
 			// we've been asked to get the pipette offset value.
-			if (mccdll_fx_return && (mccdll_DoubleParam_Function == &MCCMSG_GetPipetteOffset)) {
+			if (mccdll_fx_return && (mccdll_DoubleParam_Function == MCCMSG_GetPipetteOffset_FuncPtr)) {
 				UINT modeID = -1;
 				int modeError = 0;
-				BOOL modeReturn = MCCMSG_GetMode(hMCCmsg, &modeID, &modeError);
+				BOOL modeReturn = MCCMSG_GetMode_FuncPtr(hMCCmsg, &modeID, &modeError);
 				if (modeReturn) {
 					if (modeID != MCCMSG_MODE_VCLAMP) {
 						dOutParam = -1.0 * dOutParam;
@@ -305,130 +299,130 @@ int Generic_P1Double_ReturnDouble_Wrapper(MCC_P1Double_ReturnDouble_Params* p, M
 		BOOL(WINAPI *mccdll_BoolParam_Function)(HMCCMSG, BOOL, int*) = NULL;
 		switch (mccFx) {
 			case FX_MCC_SetTimeoutMs:
-				mccdll_UINTParam_Function = &MCCMSG_SetTimeOut;
+				mccdll_UINTParam_Function = MCCMSG_SetTimeOut_FuncPtr;
 				break;
 
 
 			case FX_MCC_SetHolding:
-				mccdll_DoubleParam_Function = &MCCMSG_SetHolding;
+				mccdll_DoubleParam_Function = MCCMSG_SetHolding_FuncPtr;
 				break;
 
 			case FX_MCC_SetHoldingEnable:
-				mccdll_BoolParam_Function = &MCCMSG_SetHoldingEnable;
+				mccdll_BoolParam_Function = MCCMSG_SetHoldingEnable_FuncPtr;
 				break;
 
 
 			case FX_MCC_SetMode:
-				mccdll_UINTParam_Function = &MCCMSG_SetMode;
+				mccdll_UINTParam_Function = MCCMSG_SetMode_FuncPtr;
 				break;
 
 
 			case FX_MCC_SetBridgeBalEnable:
-				mccdll_BoolParam_Function = &MCCMSG_SetBridgeBalEnable;
+				mccdll_BoolParam_Function = MCCMSG_SetBridgeBalEnable_FuncPtr;
 				break;
 
 			case FX_MCC_SetBridgeBalResist:
-				mccdll_DoubleParam_Function = &MCCMSG_SetBridgeBalResist;
+				mccdll_DoubleParam_Function = MCCMSG_SetBridgeBalResist_FuncPtr;
 				break;
 
 
 			case FX_MCC_SetNeutralizationEnable:
-				mccdll_BoolParam_Function = &MCCMSG_SetNeutralizationEnable;
+				mccdll_BoolParam_Function = MCCMSG_SetNeutralizationEnable_FuncPtr;
 				break;
 
 			case FX_MCC_SetNeutralizationCap:
-				mccdll_DoubleParam_Function = &MCCMSG_SetNeutralizationCap;
+				mccdll_DoubleParam_Function = MCCMSG_SetNeutralizationCap_FuncPtr;
 				break;
 
 
 			case FX_MCC_SetWholeCellCompEnable:
-				mccdll_BoolParam_Function = &MCCMSG_SetWholeCellCompEnable;
+				mccdll_BoolParam_Function = MCCMSG_SetWholeCellCompEnable_FuncPtr;
 				break;
 
 			case FX_MCC_SetWholeCellCompCap:
-				mccdll_DoubleParam_Function = &MCCMSG_SetWholeCellCompCap;
+				mccdll_DoubleParam_Function = MCCMSG_SetWholeCellCompCap_FuncPtr;
 				break;
 
 			case FX_MCC_SetWholeCellCompResist:
-				mccdll_DoubleParam_Function = &MCCMSG_SetWholeCellCompResist;
+				mccdll_DoubleParam_Function = MCCMSG_SetWholeCellCompResist_FuncPtr;
 				break;
 
 
 			case FX_MCC_SetRsCompEnable:
-				mccdll_BoolParam_Function = &MCCMSG_SetRsCompEnable;
+				mccdll_BoolParam_Function = MCCMSG_SetRsCompEnable_FuncPtr;
 				break;
 
 			case FX_MCC_SetRsCompBandwidth:
-				mccdll_DoubleParam_Function = &MCCMSG_SetRsCompBandwidth;
+				mccdll_DoubleParam_Function = MCCMSG_SetRsCompBandwidth_FuncPtr;
 				break;
 
 			case FX_MCC_SetRsCompCorrection:
-				mccdll_DoubleParam_Function = &MCCMSG_SetRsCompCorrection;
+				mccdll_DoubleParam_Function = MCCMSG_SetRsCompCorrection_FuncPtr;
 				break;
 
 			case FX_MCC_SetRsCompPrediction:
-				mccdll_DoubleParam_Function = &MCCMSG_SetRsCompPrediction;
+				mccdll_DoubleParam_Function = MCCMSG_SetRsCompPrediction_FuncPtr;
 				break;
 
 
 			case FX_MCC_SetOscKillerEnable:
-				mccdll_BoolParam_Function = &MCCMSG_SetOscKillerEnable;
+				mccdll_BoolParam_Function = MCCMSG_SetOscKillerEnable_FuncPtr;
 				break;
 
 			case FX_MCC_SetPrimarySignalGain:
-				mccdll_DoubleParam_Function = &MCCMSG_SetPrimarySignalGain;
+				mccdll_DoubleParam_Function = MCCMSG_SetPrimarySignalGain_FuncPtr;
 				break;
 
 			case FX_MCC_SetPrimarySignalLPF:
-				mccdll_DoubleParam_Function = &MCCMSG_SetPrimarySignalLPF;
+				mccdll_DoubleParam_Function = MCCMSG_SetPrimarySignalLPF_FuncPtr;
 				break;
 
 			case FX_MCC_SetPrimarySignalHPF:
-				mccdll_DoubleParam_Function = &MCCMSG_SetPrimarySignalHPF;
+				mccdll_DoubleParam_Function = MCCMSG_SetPrimarySignalHPF_FuncPtr;
 				break;
 
 			case FX_MCC_SetSecondarySignalGain:
-				mccdll_DoubleParam_Function = &MCCMSG_SetSecondarySignalGain;
+				mccdll_DoubleParam_Function = MCCMSG_SetSecondarySignalGain_FuncPtr;
 				break;
 
 			case FX_MCC_SetSecondarySignalLPF:
-				mccdll_DoubleParam_Function = &MCCMSG_SetSecondarySignalLPF;
+				mccdll_DoubleParam_Function = MCCMSG_SetSecondarySignalLPF_FuncPtr;
 				break;
 
 			case FX_MCC_SetPipetteOffset:
-				mccdll_DoubleParam_Function = &MCCMSG_SetPipetteOffset;
+				mccdll_DoubleParam_Function = MCCMSG_SetPipetteOffset_FuncPtr;
 				break;
 
 			case FX_MCC_SetFastCompCap:
-				mccdll_DoubleParam_Function = &MCCMSG_SetFastCompCap;
+				mccdll_DoubleParam_Function = MCCMSG_SetFastCompCap_FuncPtr;
 				break;
 
 			case FX_MCC_SetSlowCompCap:
-				mccdll_DoubleParam_Function = &MCCMSG_SetSlowCompCap;
+				mccdll_DoubleParam_Function = MCCMSG_SetSlowCompCap_FuncPtr;
 				break;
 
 			case FX_MCC_SetFastCompTau:
-				mccdll_DoubleParam_Function = &MCCMSG_SetFastCompTau;
+				mccdll_DoubleParam_Function = MCCMSG_SetFastCompTau_FuncPtr;
 				break;
 
 			case FX_MCC_SetSlowCompTau:
-				mccdll_DoubleParam_Function = &MCCMSG_SetSlowCompTau;
+				mccdll_DoubleParam_Function = MCCMSG_SetSlowCompTau_FuncPtr;
 				break;
 
 			case FX_MCC_SetSlowCompTauX20Enable:
-				mccdll_BoolParam_Function = &MCCMSG_SetSlowCompTauX20Enable;
+				mccdll_BoolParam_Function = MCCMSG_SetSlowCompTauX20Enable_FuncPtr;
 				break;
 
 			case FX_MCC_SetSlowCurrentInjEnable:
-				mccdll_BoolParam_Function = &MCCMSG_SetSlowCurrentInjEnable;
+				mccdll_BoolParam_Function = MCCMSG_SetSlowCurrentInjEnable_FuncPtr;
 				break;
 
 			case FX_MCC_SetSlowCurrentInjLevel:
-				mccdll_DoubleParam_Function = &MCCMSG_SetSlowCurrentInjLevel;
+				mccdll_DoubleParam_Function = MCCMSG_SetSlowCurrentInjLevel_FuncPtr;
 				break;
 
 			case FX_MCC_SetSlowCurrentInjSettlingTime:
-				mccdll_DoubleParam_Function = &MCCMSG_SetSlowCurrentInjSettlingTime;
+				mccdll_DoubleParam_Function = MCCMSG_SetSlowCurrentInjSettlingTime_FuncPtr;
 				break;
 
 			default:
@@ -450,9 +444,9 @@ int Generic_P1Double_ReturnDouble_Wrapper(MCC_P1Double_ReturnDouble_Params* p, M
 			// This appears to be a bug. To work around the bug, we check the mode
 			// and, if necessary, flip the sign of the parameter value. Obviously, we only do this when
 			// we've been asked to get the pipette offset value.
-			if (mccdll_DoubleParam_Function == &MCCMSG_SetPipetteOffset) {
+			if (mccdll_DoubleParam_Function == MCCMSG_SetPipetteOffset_FuncPtr) {
 				UINT modeID = -1;
-				mccdll_fx_return = MCCMSG_GetMode(hMCCmsg, &modeID, &mccError);
+				mccdll_fx_return = MCCMSG_GetMode_FuncPtr(hMCCmsg, &modeID, &mccError);
 				if (mccdll_fx_return) {
 					if (modeID != MCCMSG_MODE_VCLAMP) {
 						p->p1 = -1.0 * p->p1;
@@ -543,7 +537,7 @@ int MCC_SelectMultiClamp700B(MCC_SelectMultiClamp700BParams* p) {
 		// The value of this parameter comes from the Igor function call.
 		UINT uChannelID = static_cast<UINT>(p->channelID); // Headstage channel ID
 		int nError = 0;
-		if (!MCCMSG_SelectMultiClamp(hMCCmsg, uModel, szSerialNum, uCOMPortID, uDeviceID, uChannelID, &nError)) {
+		if (!MCCMSG_SelectMultiClamp_FuncPtr(hMCCmsg, uModel, szSerialNum, uCOMPortID, uDeviceID, uChannelID, &nError)) {
 			err = MCCErrorCodeToXOPErrorCode(nError);
 			goto done;
 		}

@@ -29,6 +29,198 @@
 #undef EXPORT
 #define EXPORT EXPORT_SAVE
 
+using mccdll_UINTParam_FuncType      = BOOL(WINAPI *)(HMCCMSG, UINT, int*);
+using mccdll_PtrUINTParam_FuncType   = BOOL(WINAPI *)(HMCCMSG, UINT*, int*);
+using mccdll_DoubleParam_FuncType    = BOOL(WINAPI *)(HMCCMSG, double, int*);
+using mccdll_PtrDoubleParam_FuncType = BOOL(WINAPI *)(HMCCMSG, double*, int*);
+using mccdll_BoolParam_FuncType      = BOOL(WINAPI *)(HMCCMSG, BOOL, int*);
+using mccdll_PtrBoolParam_FuncType   = BOOL(WINAPI *)(HMCCMSG, BOOL*, int*);
+using mccdll_NoParam_FunctType       = BOOL(WINAPI *)(HMCCMSG, int*);
+
+using MCCMSG_CheckAPIVersion_FuncType               = BOOL(WINAPI *)(LPCTSTR);
+using MCCMSG_CreateObject_FuncType                  = HMCCMSG(WINAPI *)(int*);
+using MCCMSG_DestroyObject_FuncType                 = void(WINAPI *)(HMCCMSG);
+using MCCMSG_SetTimeOut_FuncType                    = BOOL(WINAPI *)(HMCCMSG, UINT, int*);
+using MCCMSG_FindFirstMultiClamp_FuncType           = BOOL(WINAPI *)(HMCCMSG, UINT*, char*, UINT, UINT*, UINT*, UINT*, int*);
+using MCCMSG_FindNextMultiClamp_FuncType            = BOOL(WINAPI *)(HMCCMSG, UINT*, char*, UINT, UINT*, UINT*, UINT*, int*);
+using MCCMSG_SelectMultiClamp_FuncType              = BOOL(WINAPI *)(HMCCMSG, UINT, char*, UINT, UINT, UINT, int*);
+using MCCMSG_SetMode_FuncType                       = BOOL(WINAPI *)(HMCCMSG, UINT, int*);
+using MCCMSG_GetMode_FuncType                       = BOOL(WINAPI *)(HMCCMSG, UINT*, int*);
+using MCCMSG_SetModeSwitchEnable_FuncType           = mccdll_BoolParam_FuncType;
+using MCCMSG_GetModeSwitchEnable_FuncType           = mccdll_PtrBoolParam_FuncType;
+using MCCMSG_GetFeedbackResistorVC1_FuncType        = mccdll_PtrUINTParam_FuncType;
+using MCCMSG_GetFeedbackResistorIC1_FuncType        = mccdll_PtrUINTParam_FuncType;
+using MCCMSG_GetFeedbackResistorVC2_FuncType        = mccdll_PtrUINTParam_FuncType;
+using MCCMSG_GetFeedbackResistorIC2_FuncType        = mccdll_PtrUINTParam_FuncType;
+using MCCMSG_SetHoldingEnable_FuncType              = mccdll_BoolParam_FuncType;
+using MCCMSG_GetHoldingEnable_FuncType              = mccdll_PtrBoolParam_FuncType;
+using MCCMSG_SetHolding_FuncType                    = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetHolding_FuncType                    = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_SetTestSignalEnable_FuncType           = mccdll_BoolParam_FuncType;
+using MCCMSG_GetTestSignalEnable_FuncType           = mccdll_PtrBoolParam_FuncType;
+using MCCMSG_SetTestSignalAmplitude_FuncType        = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetTestSignalAmplitude_FuncType        = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_SetTestSignalFrequency_FuncType        = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetTestSignalFrequency_FuncType        = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_AutoPipetteOffset_FuncType             = mccdll_NoParam_FunctType;
+using MCCMSG_SetPipetteOffset_FuncType              = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetPipetteOffset_FuncType              = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_SetSlowCurrentInjEnable_FuncType       = mccdll_BoolParam_FuncType;
+using MCCMSG_GetSlowCurrentInjEnable_FuncType       = mccdll_PtrBoolParam_FuncType;
+using MCCMSG_SetSlowCurrentInjLevel_FuncType        = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetSlowCurrentInjLevel_FuncType        = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_SetSlowCurrentInjSettlingTime_FuncType = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetSlowCurrentInjSettlingTime_FuncType = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_SetFastCompCap_FuncType                = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetFastCompCap_FuncType                = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_SetSlowCompCap_FuncType                = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetSlowCompCap_FuncType                = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_SetFastCompTau_FuncType                = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetFastCompTau_FuncType                = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_SetSlowCompTau_FuncType                = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetSlowCompTau_FuncType                = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_SetSlowCompTauX20Enable_FuncType       = mccdll_BoolParam_FuncType;
+using MCCMSG_GetSlowCompTauX20Enable_FuncType       = mccdll_PtrBoolParam_FuncType;
+using MCCMSG_AutoFastComp_FuncType                  = mccdll_NoParam_FunctType;
+using MCCMSG_AutoSlowComp_FuncType                  = mccdll_NoParam_FunctType;
+using MCCMSG_SetNeutralizationEnable_FuncType       = mccdll_BoolParam_FuncType;
+using MCCMSG_GetNeutralizationEnable_FuncType       = mccdll_PtrBoolParam_FuncType;
+using MCCMSG_SetNeutralizationCap_FuncType          = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetNeutralizationCap_FuncType          = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_SetWholeCellCompEnable_FuncType        = mccdll_BoolParam_FuncType;
+using MCCMSG_GetWholeCellCompEnable_FuncType        = mccdll_PtrBoolParam_FuncType;
+using MCCMSG_SetWholeCellCompCap_FuncType           = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetWholeCellCompCap_FuncType           = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_SetWholeCellCompResist_FuncType        = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetWholeCellCompResist_FuncType        = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_AutoWholeCellComp_FuncType             = mccdll_NoParam_FunctType;
+using MCCMSG_SetRsCompEnable_FuncType               = mccdll_BoolParam_FuncType;
+using MCCMSG_GetRsCompEnable_FuncType               = mccdll_PtrBoolParam_FuncType;
+using MCCMSG_SetRsCompBandwidth_FuncType            = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetRsCompBandwidth_FuncType            = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_SetRsCompCorrection_FuncType           = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetRsCompCorrection_FuncType           = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_SetRsCompPrediction_FuncType           = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetRsCompPrediction_FuncType           = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_SetOscKillerEnable_FuncType            = mccdll_BoolParam_FuncType;
+using MCCMSG_GetOscKillerEnable_FuncType            = mccdll_PtrBoolParam_FuncType;
+using MCCMSG_SetPrimarySignal_FuncType              = mccdll_UINTParam_FuncType;
+using MCCMSG_GetPrimarySignal_FuncType              = mccdll_PtrUINTParam_FuncType;
+using MCCMSG_SetPrimarySignalGain_FuncType          = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetPrimarySignalGain_FuncType          = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_SetPrimarySignalLPF_FuncType           = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetPrimarySignalLPF_FuncType           = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_SetPrimarySignalHPF_FuncType           = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetPrimarySignalHPF_FuncType           = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_SetScopeSignalLPF_FuncType             = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetScopeSignalLPF_FuncType             = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_SetSecondarySignal_FuncType            = mccdll_UINTParam_FuncType;
+using MCCMSG_GetSecondarySignal_FuncType            = mccdll_PtrUINTParam_FuncType;
+using MCCMSG_SetSecondarySignalGain_FuncType        = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetSecondarySignalGain_FuncType        = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_SetSecondarySignalLPF_FuncType         = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetSecondarySignalLPF_FuncType         = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_BuildErrorText_FuncType                = BOOL (WINAPI *)(HMCCMSG, int, LPSTR, UINT);
+using MCCMSG_SetBridgeBalEnable_FuncType            = mccdll_BoolParam_FuncType;
+using MCCMSG_GetBridgeBalEnable_FuncType            = mccdll_PtrBoolParam_FuncType;
+using MCCMSG_SetBridgeBalResist_FuncType            = mccdll_DoubleParam_FuncType;
+using MCCMSG_GetBridgeBalResist_FuncType            = mccdll_PtrDoubleParam_FuncType;
+using MCCMSG_AutoBridgeBal_FuncType                 = mccdll_NoParam_FunctType;
+
+#define DECLARE_FUNC_PTR(A)         \
+ extern A ##_FuncType A ##_FuncPtr;
+
+DECLARE_FUNC_PTR(MCCMSG_CheckAPIVersion)
+DECLARE_FUNC_PTR(MCCMSG_CreateObject)
+DECLARE_FUNC_PTR(MCCMSG_DestroyObject)
+DECLARE_FUNC_PTR(MCCMSG_SetTimeOut)
+DECLARE_FUNC_PTR(MCCMSG_FindFirstMultiClamp)
+DECLARE_FUNC_PTR(MCCMSG_FindNextMultiClamp)
+DECLARE_FUNC_PTR(MCCMSG_SelectMultiClamp)
+DECLARE_FUNC_PTR(MCCMSG_SetMode)
+DECLARE_FUNC_PTR(MCCMSG_GetMode)
+DECLARE_FUNC_PTR(MCCMSG_SetModeSwitchEnable)
+DECLARE_FUNC_PTR(MCCMSG_GetModeSwitchEnable)
+DECLARE_FUNC_PTR(MCCMSG_GetFeedbackResistorVC1)
+DECLARE_FUNC_PTR(MCCMSG_GetFeedbackResistorIC1)
+DECLARE_FUNC_PTR(MCCMSG_GetFeedbackResistorVC2)
+DECLARE_FUNC_PTR(MCCMSG_GetFeedbackResistorIC2)
+DECLARE_FUNC_PTR(MCCMSG_SetHoldingEnable)
+DECLARE_FUNC_PTR(MCCMSG_GetHoldingEnable)
+DECLARE_FUNC_PTR(MCCMSG_SetHolding)
+DECLARE_FUNC_PTR(MCCMSG_GetHolding)
+DECLARE_FUNC_PTR(MCCMSG_SetTestSignalEnable)
+DECLARE_FUNC_PTR(MCCMSG_GetTestSignalEnable)
+DECLARE_FUNC_PTR(MCCMSG_SetTestSignalAmplitude)
+DECLARE_FUNC_PTR(MCCMSG_GetTestSignalAmplitude)
+DECLARE_FUNC_PTR(MCCMSG_SetTestSignalFrequency)
+DECLARE_FUNC_PTR(MCCMSG_GetTestSignalFrequency)
+DECLARE_FUNC_PTR(MCCMSG_AutoPipetteOffset)
+DECLARE_FUNC_PTR(MCCMSG_SetPipetteOffset)
+DECLARE_FUNC_PTR(MCCMSG_GetPipetteOffset)
+DECLARE_FUNC_PTR(MCCMSG_SetSlowCurrentInjEnable)
+DECLARE_FUNC_PTR(MCCMSG_GetSlowCurrentInjEnable)
+DECLARE_FUNC_PTR(MCCMSG_SetSlowCurrentInjLevel)
+DECLARE_FUNC_PTR(MCCMSG_GetSlowCurrentInjLevel)
+DECLARE_FUNC_PTR(MCCMSG_SetSlowCurrentInjSettlingTime)
+DECLARE_FUNC_PTR(MCCMSG_GetSlowCurrentInjSettlingTime)
+DECLARE_FUNC_PTR(MCCMSG_SetFastCompCap)
+DECLARE_FUNC_PTR(MCCMSG_GetFastCompCap)
+DECLARE_FUNC_PTR(MCCMSG_SetSlowCompCap)
+DECLARE_FUNC_PTR(MCCMSG_GetSlowCompCap)
+DECLARE_FUNC_PTR(MCCMSG_SetFastCompTau)
+DECLARE_FUNC_PTR(MCCMSG_GetFastCompTau)
+DECLARE_FUNC_PTR(MCCMSG_SetSlowCompTau)
+DECLARE_FUNC_PTR(MCCMSG_GetSlowCompTau)
+DECLARE_FUNC_PTR(MCCMSG_SetSlowCompTauX20Enable)
+DECLARE_FUNC_PTR(MCCMSG_GetSlowCompTauX20Enable)
+DECLARE_FUNC_PTR(MCCMSG_AutoFastComp)
+DECLARE_FUNC_PTR(MCCMSG_AutoSlowComp)
+DECLARE_FUNC_PTR(MCCMSG_SetNeutralizationEnable)
+DECLARE_FUNC_PTR(MCCMSG_GetNeutralizationEnable)
+DECLARE_FUNC_PTR(MCCMSG_SetNeutralizationCap)
+DECLARE_FUNC_PTR(MCCMSG_GetNeutralizationCap)
+DECLARE_FUNC_PTR(MCCMSG_SetWholeCellCompEnable)
+DECLARE_FUNC_PTR(MCCMSG_GetWholeCellCompEnable)
+DECLARE_FUNC_PTR(MCCMSG_SetWholeCellCompCap)
+DECLARE_FUNC_PTR(MCCMSG_GetWholeCellCompCap)
+DECLARE_FUNC_PTR(MCCMSG_SetWholeCellCompResist)
+DECLARE_FUNC_PTR(MCCMSG_GetWholeCellCompResist)
+DECLARE_FUNC_PTR(MCCMSG_AutoWholeCellComp)
+DECLARE_FUNC_PTR(MCCMSG_SetRsCompEnable)
+DECLARE_FUNC_PTR(MCCMSG_GetRsCompEnable)
+DECLARE_FUNC_PTR(MCCMSG_SetRsCompBandwidth)
+DECLARE_FUNC_PTR(MCCMSG_GetRsCompBandwidth)
+DECLARE_FUNC_PTR(MCCMSG_SetRsCompCorrection)
+DECLARE_FUNC_PTR(MCCMSG_GetRsCompCorrection)
+DECLARE_FUNC_PTR(MCCMSG_SetRsCompPrediction)
+DECLARE_FUNC_PTR(MCCMSG_GetRsCompPrediction)
+DECLARE_FUNC_PTR(MCCMSG_SetOscKillerEnable)
+DECLARE_FUNC_PTR(MCCMSG_GetOscKillerEnable)
+DECLARE_FUNC_PTR(MCCMSG_SetPrimarySignal)
+DECLARE_FUNC_PTR(MCCMSG_GetPrimarySignal)
+DECLARE_FUNC_PTR(MCCMSG_SetPrimarySignalGain)
+DECLARE_FUNC_PTR(MCCMSG_GetPrimarySignalGain)
+DECLARE_FUNC_PTR(MCCMSG_SetPrimarySignalLPF)
+DECLARE_FUNC_PTR(MCCMSG_GetPrimarySignalLPF)
+DECLARE_FUNC_PTR(MCCMSG_SetPrimarySignalHPF)
+DECLARE_FUNC_PTR(MCCMSG_GetPrimarySignalHPF)
+DECLARE_FUNC_PTR(MCCMSG_SetScopeSignalLPF)
+DECLARE_FUNC_PTR(MCCMSG_GetScopeSignalLPF)
+DECLARE_FUNC_PTR(MCCMSG_SetSecondarySignal)
+DECLARE_FUNC_PTR(MCCMSG_GetSecondarySignal)
+DECLARE_FUNC_PTR(MCCMSG_SetSecondarySignalGain)
+DECLARE_FUNC_PTR(MCCMSG_GetSecondarySignalGain)
+DECLARE_FUNC_PTR(MCCMSG_SetSecondarySignalLPF)
+DECLARE_FUNC_PTR(MCCMSG_GetSecondarySignalLPF)
+DECLARE_FUNC_PTR(MCCMSG_BuildErrorText)
+DECLARE_FUNC_PTR(MCCMSG_SetBridgeBalEnable)
+DECLARE_FUNC_PTR(MCCMSG_GetBridgeBalEnable)
+DECLARE_FUNC_PTR(MCCMSG_SetBridgeBalResist)
+DECLARE_FUNC_PTR(MCCMSG_GetBridgeBalResist)
+DECLARE_FUNC_PTR(MCCMSG_AutoBridgeBal)
+
+#undef DECLARE_FUNC_PTR
 
 /* MultiClamp700xCommander custom error codes */
 enum XOPErrors {
