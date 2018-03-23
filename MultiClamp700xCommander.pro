@@ -155,6 +155,7 @@ QMAKE_CXXFLAGS += -Gd
 # QMAKE_CFLAGS_RELEASE -= -MD
 # QMAKE_CXXFLAGS_RELEASE -= -MD
 
+QMAKE_CFLAGS_RELEASE += /MP /Zi
 
 # Linker flags
 QMAKE_LFLAGS_DEBUG += /NODEFAULTLIB:libcmt	# Using this flag in release mode results in lots of linker errors.
