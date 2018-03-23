@@ -89,8 +89,8 @@ OTHER_FILES += $${WIN_RESOURCE}
 OTHER_FILES += $${WIN_CUSTOM_RESOURCE}
 
 # These definitions indicate that the XOP supports long wave names.
-RC_DEFINES += XOP_LONG_NAMES_AND_PATHS=1	# For the resource compiler (windows only)
-DEFINES += XOP_LONG_NAMES_AND_PATHS=1		# For the C/C++ compiler.
+# RC_DEFINES += XOP_LONG_NAMES_AND_PATHS=1	# For the resource compiler (windows only)
+# DEFINES += XOP_LONG_NAMES_AND_PATHS=1		# For the C/C++ compiler.
 
 
 #--------------------------------------------------------------------------

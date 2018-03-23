@@ -247,7 +247,7 @@ XOPMain(IORecHandle ioRecHandle)			// The use of XOPMain rather than main means 
 	XOPInit(ioRecHandle);					// Do standard XOP initialization
 	SetXOPEntry(XOPEntry);					// Set entry point for future calls
 
-	if (igorVersion < 800) {		// Requires Igor Pro 8.00 or later for long name support.
+	if (igorVersion < 700) {		// Requires Igor Pro 7.00 or later
 		SetXOPResult(OLD_IGOR);
 		return EXIT_FAILURE;
 	}
