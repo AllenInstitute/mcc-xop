@@ -145,15 +145,15 @@ QMAKE_CFLAGS += -Gd
 QMAKE_CXXFLAGS += -Gd
 
 # Use Multi-Threaded runtime library.
-QMAKE_CFLAGS_DEBUG += /MTd
-QMAKE_CXXFLAGS_DEBUG += /MTd
-QMAKE_CFLAGS_DEBUG -= -MDd
-QMAKE_CXXFLAGS_DEBUG -= -MDd
-
-QMAKE_CFLAGS_RELEASE += /MT
-QMAKE_CXXFLAGS_RELEASE += /MT
-QMAKE_CFLAGS_RELEASE -= -MD
-QMAKE_CXXFLAGS_RELEASE -= -MD
+# QMAKE_CFLAGS_DEBUG += /MTd
+# QMAKE_CXXFLAGS_DEBUG += /MTd
+# QMAKE_CFLAGS_DEBUG -= -MDd
+# QMAKE_CXXFLAGS_DEBUG -= -MDd
+#
+# QMAKE_CFLAGS_RELEASE += /MT
+# QMAKE_CXXFLAGS_RELEASE += /MT
+# QMAKE_CFLAGS_RELEASE -= -MD
+# QMAKE_CXXFLAGS_RELEASE -= -MD
 
 # -Zc:strictStrings causes compiler errors with VC2013 and XOP Toolkit 6. It may be fixed in Tookit 7, in which
 # case we could remove the next two lines.
