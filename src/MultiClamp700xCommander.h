@@ -23,7 +23,12 @@
 #ifndef MULTICLAMP700XCOMMANDER_H
 #define MULTICLAMP700XCOMMANDER_H
 
+#define EXPORT_SAVE EXPORT
+#define EXPORT
 #include "AxMultiClampMsg.h"
+#undef EXPORT
+#define EXPORT EXPORT_SAVE
+
 
 /* MultiClamp700xCommander custom error codes */
 enum XOPErrors {

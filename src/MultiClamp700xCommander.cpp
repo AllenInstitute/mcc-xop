@@ -22,7 +22,7 @@
 
 #include "XOPStandardHeaders.h"			// Include ANSI headers, Mac headers, IgorXOP.h, XOP.h and XOPSupport.h
 #include "MultiClamp700xCommander.h"
-#include "AxMultiClampMsg.h"
+
 #include "MultiClamp700xCommander_Functions.h"
 #include "MultiClamp700xCommander_Operations.h"
 
