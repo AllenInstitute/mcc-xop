@@ -275,8 +275,6 @@ HOST_IMPORT int XOPMain(IORecHandle ioRecHandle)			// The use of XOPMain rather 
 		return EXIT_FAILURE;
 	}
 
-	return 0;
-
 	SetXOPResult(0);
 	return EXIT_SUCCESS;
 }
