@@ -170,13 +170,11 @@ greaterThan(ARCH_IS_64_BIT, 0) {
     # Name of the XOP (without extension)
     TARGET = $${XOP_NAME}64
     LIBS += -lIGOR64
-    LIBS += -lXOPSupportLongNames64
 }
 else {
     # Name of the XOP (without extension)
     TARGET = $${XOP_NAME}
     LIBS += -lIGOR
-    LIBS += -lXOPSupportLongNames
 }
 
 LIBS += version.lib		# Required by XOP toolkit.
