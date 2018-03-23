@@ -29,8 +29,11 @@
 /* Global Variables */
 UINT gExecuting = FALSE;				// Flag variable that reflects whether the XOP is in the middle of executing and used to prevent recursion.
 
+
+namespace  {
+
 // Static MCC DLL handle.
-static HMCCMSG s_hMCCmsg = NULL;
+HMCCMSG s_hMCCmsg = NULL;
 
 // Utility functions
 /**
@@ -67,9 +70,7 @@ void PrintErrorMessageToCommandLine(HMCCMSG hMCCmsg, int nError) {
 
 // NOTE: To enable me to write less code, most external functions
 // are handled using the FUNCTION message, not directly.
-static XOPIORecResult
-RegisterFunction()
-{
+XOPIORecResult RegisterFunction() {
 	int funcIndex;
 
 	funcIndex = (int)GetXOPItem(0);	/* which function invoked ? */
@@ -81,11 +82,23 @@ RegisterFunction()
 	return 0;
 }
 
+// Register XOPs operations with Igor.
+int RegisterOperations() {
+  int err;
+
+  // Register AxonTelegraphFindServers operation.
+  if (err = RegisterMCC_FindServers())
+    return err;
+
+  // There are no more operations added by this XOP.
+
+  return 0;
+}
+
 /**
 	\brief Handles calls to functions via the FUNCTION message from Igor.
 */
-static int
-DoFunction() {
+int DoFunction() {
 	int funcIndex;
 	void *p;				/* pointer to structure containing function parameters and result */
 	int err;				/* error code returned by function */
@@ -181,21 +194,22 @@ DoFunction() {
 Called to clean things up when XOP is about to be disposed.
 This happens when Igor is quitting.
 */
-static void XOPQuit(void) {
+void XOPQuit(void) {
 	if (s_hMCCmsg != NULL) {
 		// destroy DLL handle
-		MCCMSG_DestroyObject(s_hMCCmsg);
+		MCCMSG_DestroyObject_FuncPtr(s_hMCCmsg);
 		s_hMCCmsg = NULL;
 	}
 }
+
+} // anonymous namespace
 
 /*	XOPEntry()
 
 	This is the entry point from the host application to the XOP for all messages after the
 	INIT message.
 */
-extern "C" void
-XOPEntry(void)
+extern "C" void XOPEntry(void)
 {
 	XOPIORecResult result = 0;
 
@@ -217,19 +231,6 @@ XOPEntry(void)
 	SetXOPResult(result);
 }
 
-// Register XOPs operations with Igor.
-static int RegisterOperations() {
-	int err;
-
-	// Register AxonTelegraphFindServers operation.
-	if (err = RegisterMCC_FindServers())
-		return err;
-
-	// There are no more operations added by this XOP.
-
-	return 0;
-}
-
 /*	XOPMain(ioRecHandle)
 
 	This is the initial entry point at which the host application calls XOP.
@@ -239,8 +240,7 @@ static int RegisterOperations() {
 	ioRecHandle to the address to be called for future messages.
 */
 
-HOST_IMPORT int
-XOPMain(IORecHandle ioRecHandle)			// The use of XOPMain rather than main means this XOP requires Igor Pro 6.20 or later
+HOST_IMPORT int XOPMain(IORecHandle ioRecHandle)			// The use of XOPMain rather than main means this XOP requires Igor Pro 6.20 or later
 {
 	int err = 0;
 
