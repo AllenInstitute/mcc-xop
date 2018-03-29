@@ -65,12 +65,12 @@ BEGIN
             VALUE "Comments", "MultiClamp700xCommander is an Igor Pro extension.\0"
             VALUE "CompanyName", "WaveMetrics\0"
             VALUE "FileDescription", "MultiClamp700xCommander is an Igor Pro extension.\0"
-			VALUE "FileVersion", "2, 0, 0, 0\0"
+			      VALUE "FileVersion", "2, 0, 0, 0\0"
             VALUE "InternalName", "MultiClamp700xCommander\0"
-			VALUE "LegalCopyright", "Copyright 2014-2018\0"
+			      VALUE "LegalCopyright", "Copyright 2014-2018\0"
             VALUE "OriginalFilename", "MultiClamp700xCommander.xop\0"
             VALUE "ProductName", "Igor Pro MultiClamp700xCommander\0"
-			VALUE "ProductVersion", "8, 0, 0, 0\0"
+			      VALUE "ProductVersion", "8, 0, 0, 0\0"
         END
     END
     BLOCK "VarFileInfo"
