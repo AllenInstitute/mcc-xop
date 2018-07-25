@@ -23,6 +23,7 @@
 #define WIN32_LEAN_AND_MEAN
 #define _WIN32_WINNT 0x0502
 #include <windows.h>
+#include <Shlobj.h>
 
 #include "XOPStandardHeaders.h"			// Include ANSI headers, Mac headers, IgorXOP.h, XOP.h and XOPSupport.h
 #include "MultiClamp700xCommander.h"
@@ -300,6 +301,20 @@ void XOPQuit(void) {
 	}
 }
 
+/// Return the correct `Program Files` path taking into account process bitness
+/// and Windows bitness
+std::string GetProgramFiles()
+{
+  TCHAR pf[MAX_PATH];
+  if(SHGetSpecialFolderPath(0, pf, CSIDL_PROGRAM_FILES, FALSE) == TRUE)
+  {
+    return pf;
+  }
+
+  XOPNotice2("Could not call SHGetSpecialFolderPath\r", 0);
+  return "INVALID_PATH";
+}
+
 } // anonymous namespace
 
 /*	XOPEntry()
@@ -354,12 +369,7 @@ HOST_IMPORT int XOPMain(IORecHandle ioRecHandle)			// The use of XOPMain rather 
 		return EXIT_FAILURE;
 	}
 
-#ifdef IGOR64
-  const std::string path = R"(C:\Program Files\Molecular Devices\MultiClamp 700B Commander\3rd Party Support\AxMultiClampMsg)";
-#else
-  const std::string path = R"(C:\Program Files (x86)\Molecular Devices\MultiClamp 700B Commander\3rd Party Support\AxMultiClampMsg)";
-#endif
-
+  const std::string path = GetProgramFiles() + R"(\Molecular Devices\MultiClamp 700B Commander\3rd Party Support\AxMultiClampMsg)";
   const std::string dllHelpMessage = "The Molecular Devices Library \"AxMultiClampMsg.dll\" could not be found in the folder \"" + path + "\".\r" +
     "Please install the latest version of the Multiclamp Commander Application and restart Igor Pro.";
 
