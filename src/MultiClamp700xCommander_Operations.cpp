@@ -78,7 +78,7 @@ int ExecuteMCC_FindServers(MCC_FindServersRuntimeParamsPtr p) {
 		std::vector<MultiClamp> multiClampVector;
 
 		// Find the first multiclamp.
-		if (!MCCMSG_FindFirstMultiClamp(hMCCmsg, &uModel, szSerialNum, sizeof(szSerialNum), &uCOMPortID, &uDeviceID, &uChannelID, &mccError)) {
+		if (!MCCMSG_FindFirstMultiClamp_FuncPtr(hMCCmsg, &uModel, szSerialNum, sizeof(szSerialNum), &uCOMPortID, &uDeviceID, &uChannelID, &mccError)) {
 			goto done;
 		}
 
@@ -88,7 +88,7 @@ int ExecuteMCC_FindServers(MCC_FindServersRuntimeParamsPtr p) {
 		// Iterate through all other MultiClamps.
 		while (1) {
 			// find the next MultiClamp
-			if (MCCMSG_FindNextMultiClamp(hMCCmsg, &uModel, szSerialNum, sizeof(szSerialNum), &uCOMPortID, &uDeviceID, &uChannelID, &mccError)) {
+			if (MCCMSG_FindNextMultiClamp_FuncPtr(hMCCmsg, &uModel, szSerialNum, sizeof(szSerialNum), &uCOMPortID, &uDeviceID, &uChannelID, &mccError)) {
 				// Add the device to the vector of multi clamps.
 				multiClampVector.push_back(MultiClamp(szSerialNum, uModel, uCOMPortID, uDeviceID, uChannelID));
 			}

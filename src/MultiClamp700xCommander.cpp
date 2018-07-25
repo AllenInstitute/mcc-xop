@@ -20,17 +20,118 @@
 	OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#define WIN32_LEAN_AND_MEAN
+#define _WIN32_WINNT 0x0502
+#include <windows.h>
+
 #include "XOPStandardHeaders.h"			// Include ANSI headers, Mac headers, IgorXOP.h, XOP.h and XOPSupport.h
 #include "MultiClamp700xCommander.h"
-#include "AxMultiClampMsg.h"
+
 #include "MultiClamp700xCommander_Functions.h"
 #include "MultiClamp700xCommander_Operations.h"
 
 /* Global Variables */
 UINT gExecuting = FALSE;				// Flag variable that reflects whether the XOP is in the middle of executing and used to prevent recursion.
 
+#define DEFINE_FUNC_PTR(A) \
+ A ##_FuncType A ## _FuncPtr = nullptr;
+
+DEFINE_FUNC_PTR(MCCMSG_CheckAPIVersion)
+DEFINE_FUNC_PTR(MCCMSG_CreateObject)
+DEFINE_FUNC_PTR(MCCMSG_DestroyObject)
+DEFINE_FUNC_PTR(MCCMSG_SetTimeOut)
+DEFINE_FUNC_PTR(MCCMSG_FindFirstMultiClamp)
+DEFINE_FUNC_PTR(MCCMSG_FindNextMultiClamp)
+DEFINE_FUNC_PTR(MCCMSG_SelectMultiClamp)
+DEFINE_FUNC_PTR(MCCMSG_SetMode)
+DEFINE_FUNC_PTR(MCCMSG_GetMode)
+DEFINE_FUNC_PTR(MCCMSG_SetModeSwitchEnable)
+DEFINE_FUNC_PTR(MCCMSG_GetModeSwitchEnable)
+DEFINE_FUNC_PTR(MCCMSG_GetFeedbackResistorVC1)
+DEFINE_FUNC_PTR(MCCMSG_GetFeedbackResistorIC1)
+DEFINE_FUNC_PTR(MCCMSG_GetFeedbackResistorVC2)
+DEFINE_FUNC_PTR(MCCMSG_GetFeedbackResistorIC2)
+DEFINE_FUNC_PTR(MCCMSG_SetHoldingEnable)
+DEFINE_FUNC_PTR(MCCMSG_GetHoldingEnable)
+DEFINE_FUNC_PTR(MCCMSG_SetHolding)
+DEFINE_FUNC_PTR(MCCMSG_GetHolding)
+DEFINE_FUNC_PTR(MCCMSG_SetTestSignalEnable)
+DEFINE_FUNC_PTR(MCCMSG_GetTestSignalEnable)
+DEFINE_FUNC_PTR(MCCMSG_SetTestSignalAmplitude)
+DEFINE_FUNC_PTR(MCCMSG_GetTestSignalAmplitude)
+DEFINE_FUNC_PTR(MCCMSG_SetTestSignalFrequency)
+DEFINE_FUNC_PTR(MCCMSG_GetTestSignalFrequency)
+DEFINE_FUNC_PTR(MCCMSG_AutoPipetteOffset)
+DEFINE_FUNC_PTR(MCCMSG_SetPipetteOffset)
+DEFINE_FUNC_PTR(MCCMSG_GetPipetteOffset)
+DEFINE_FUNC_PTR(MCCMSG_SetSlowCurrentInjEnable)
+DEFINE_FUNC_PTR(MCCMSG_GetSlowCurrentInjEnable)
+DEFINE_FUNC_PTR(MCCMSG_SetSlowCurrentInjLevel)
+DEFINE_FUNC_PTR(MCCMSG_GetSlowCurrentInjLevel)
+DEFINE_FUNC_PTR(MCCMSG_SetSlowCurrentInjSettlingTime)
+DEFINE_FUNC_PTR(MCCMSG_GetSlowCurrentInjSettlingTime)
+DEFINE_FUNC_PTR(MCCMSG_SetFastCompCap)
+DEFINE_FUNC_PTR(MCCMSG_GetFastCompCap)
+DEFINE_FUNC_PTR(MCCMSG_SetSlowCompCap)
+DEFINE_FUNC_PTR(MCCMSG_GetSlowCompCap)
+DEFINE_FUNC_PTR(MCCMSG_SetFastCompTau)
+DEFINE_FUNC_PTR(MCCMSG_GetFastCompTau)
+DEFINE_FUNC_PTR(MCCMSG_SetSlowCompTau)
+DEFINE_FUNC_PTR(MCCMSG_GetSlowCompTau)
+DEFINE_FUNC_PTR(MCCMSG_SetSlowCompTauX20Enable)
+DEFINE_FUNC_PTR(MCCMSG_GetSlowCompTauX20Enable)
+DEFINE_FUNC_PTR(MCCMSG_AutoFastComp)
+DEFINE_FUNC_PTR(MCCMSG_AutoSlowComp)
+DEFINE_FUNC_PTR(MCCMSG_SetNeutralizationEnable)
+DEFINE_FUNC_PTR(MCCMSG_GetNeutralizationEnable)
+DEFINE_FUNC_PTR(MCCMSG_SetNeutralizationCap)
+DEFINE_FUNC_PTR(MCCMSG_GetNeutralizationCap)
+DEFINE_FUNC_PTR(MCCMSG_SetWholeCellCompEnable)
+DEFINE_FUNC_PTR(MCCMSG_GetWholeCellCompEnable)
+DEFINE_FUNC_PTR(MCCMSG_SetWholeCellCompCap)
+DEFINE_FUNC_PTR(MCCMSG_GetWholeCellCompCap)
+DEFINE_FUNC_PTR(MCCMSG_SetWholeCellCompResist)
+DEFINE_FUNC_PTR(MCCMSG_GetWholeCellCompResist)
+DEFINE_FUNC_PTR(MCCMSG_AutoWholeCellComp)
+DEFINE_FUNC_PTR(MCCMSG_SetRsCompEnable)
+DEFINE_FUNC_PTR(MCCMSG_GetRsCompEnable)
+DEFINE_FUNC_PTR(MCCMSG_SetRsCompBandwidth)
+DEFINE_FUNC_PTR(MCCMSG_GetRsCompBandwidth)
+DEFINE_FUNC_PTR(MCCMSG_SetRsCompCorrection)
+DEFINE_FUNC_PTR(MCCMSG_GetRsCompCorrection)
+DEFINE_FUNC_PTR(MCCMSG_SetRsCompPrediction)
+DEFINE_FUNC_PTR(MCCMSG_GetRsCompPrediction)
+DEFINE_FUNC_PTR(MCCMSG_SetOscKillerEnable)
+DEFINE_FUNC_PTR(MCCMSG_GetOscKillerEnable)
+DEFINE_FUNC_PTR(MCCMSG_SetPrimarySignal)
+DEFINE_FUNC_PTR(MCCMSG_GetPrimarySignal)
+DEFINE_FUNC_PTR(MCCMSG_SetPrimarySignalGain)
+DEFINE_FUNC_PTR(MCCMSG_GetPrimarySignalGain)
+DEFINE_FUNC_PTR(MCCMSG_SetPrimarySignalLPF)
+DEFINE_FUNC_PTR(MCCMSG_GetPrimarySignalLPF)
+DEFINE_FUNC_PTR(MCCMSG_SetPrimarySignalHPF)
+DEFINE_FUNC_PTR(MCCMSG_GetPrimarySignalHPF)
+DEFINE_FUNC_PTR(MCCMSG_SetScopeSignalLPF)
+DEFINE_FUNC_PTR(MCCMSG_GetScopeSignalLPF)
+DEFINE_FUNC_PTR(MCCMSG_SetSecondarySignal)
+DEFINE_FUNC_PTR(MCCMSG_GetSecondarySignal)
+DEFINE_FUNC_PTR(MCCMSG_SetSecondarySignalGain)
+DEFINE_FUNC_PTR(MCCMSG_GetSecondarySignalGain)
+DEFINE_FUNC_PTR(MCCMSG_SetSecondarySignalLPF)
+DEFINE_FUNC_PTR(MCCMSG_GetSecondarySignalLPF)
+DEFINE_FUNC_PTR(MCCMSG_BuildErrorText)
+DEFINE_FUNC_PTR(MCCMSG_SetBridgeBalEnable)
+DEFINE_FUNC_PTR(MCCMSG_GetBridgeBalEnable)
+DEFINE_FUNC_PTR(MCCMSG_SetBridgeBalResist)
+DEFINE_FUNC_PTR(MCCMSG_GetBridgeBalResist)
+DEFINE_FUNC_PTR(MCCMSG_AutoBridgeBal)
+
+#undef DEFINE_FUNC_PTR
+
+namespace  {
+
 // Static MCC DLL handle.
-static HMCCMSG s_hMCCmsg = NULL;
+HMCCMSG s_hMCCmsg = NULL;
 
 // Utility functions
 /**
@@ -46,7 +147,7 @@ static HMCCMSG s_hMCCmsg = NULL;
 	The size of \a sTxtBuf in bytes.
 */
 void GetMCCErrorMessage(HMCCMSG hMCCmsg, int nError, LPSTR	sTxtBuf, UINT uMaxLen) {
-	MCCMSG_BuildErrorText(hMCCmsg, nError, sTxtBuf, uMaxLen);
+	MCCMSG_BuildErrorText_FuncPtr(hMCCmsg, nError, sTxtBuf, uMaxLen);
 }
 
 /**
@@ -67,9 +168,7 @@ void PrintErrorMessageToCommandLine(HMCCMSG hMCCmsg, int nError) {
 
 // NOTE: To enable me to write less code, most external functions
 // are handled using the FUNCTION message, not directly.
-static XOPIORecResult
-RegisterFunction()
-{
+XOPIORecResult RegisterFunction() {
 	int funcIndex;
 
 	funcIndex = (int)GetXOPItem(0);	/* which function invoked ? */
@@ -81,11 +180,23 @@ RegisterFunction()
 	return 0;
 }
 
+// Register XOPs operations with Igor.
+int RegisterOperations() {
+  int err;
+
+  // Register AxonTelegraphFindServers operation.
+  if (err = RegisterMCC_FindServers())
+    return err;
+
+  // There are no more operations added by this XOP.
+
+  return 0;
+}
+
 /**
 	\brief Handles calls to functions via the FUNCTION message from Igor.
 */
-static int
-DoFunction() {
+int DoFunction() {
 	int funcIndex;
 	void *p;				/* pointer to structure containing function parameters and result */
 	int err;				/* error code returned by function */
@@ -181,21 +292,22 @@ DoFunction() {
 Called to clean things up when XOP is about to be disposed.
 This happens when Igor is quitting.
 */
-static void XOPQuit(void) {
+void XOPQuit(void) {
 	if (s_hMCCmsg != NULL) {
 		// destroy DLL handle
-		MCCMSG_DestroyObject(s_hMCCmsg);
+		MCCMSG_DestroyObject_FuncPtr(s_hMCCmsg);
 		s_hMCCmsg = NULL;
 	}
 }
+
+} // anonymous namespace
 
 /*	XOPEntry()
 
 	This is the entry point from the host application to the XOP for all messages after the
 	INIT message.
 */
-extern "C" void
-XOPEntry(void)
+extern "C" void XOPEntry(void)
 {
 	XOPIORecResult result = 0;
 
@@ -217,19 +329,6 @@ XOPEntry(void)
 	SetXOPResult(result);
 }
 
-// Register XOPs operations with Igor.
-static int RegisterOperations() {
-	int err;
-
-	// Register AxonTelegraphFindServers operation.
-	if (err = RegisterMCC_FindServers())
-		return err;
-
-	// There are no more operations added by this XOP.
-
-	return 0;
-}
-
 /*	XOPMain(ioRecHandle)
 
 	This is the initial entry point at which the host application calls XOP.
@@ -239,30 +338,171 @@ static int RegisterOperations() {
 	ioRecHandle to the address to be called for future messages.
 */
 
-HOST_IMPORT int
-XOPMain(IORecHandle ioRecHandle)			// The use of XOPMain rather than main means this XOP requires Igor Pro 6.20 or later
+HOST_IMPORT int XOPMain(IORecHandle ioRecHandle)			// The use of XOPMain rather than main means this XOP requires Igor Pro 6.20 or later
 {
-	int err = 0;
-
 	XOPInit(ioRecHandle);					// Do standard XOP initialization
 	SetXOPEntry(XOPEntry);					// Set entry point for future calls
 
-	if (igorVersion < 800) {		// Requires Igor Pro 8.00 or later for long name support.
+	if (igorVersion < 700) {		// Requires Igor Pro 7.00 or later
 		SetXOPResult(OLD_IGOR);
 		return EXIT_FAILURE;
 	}
 
-	// Register the XOP's operations.
-	if (err = RegisterOperations()) {
-		SetXOPResult(err);
+  // Register the XOP's operations.
+	if (int ret = RegisterOperations()) {
+		SetXOPResult(ret);
 		return EXIT_FAILURE;
 	}
 
+#ifdef IGOR64
+  const std::string path = R"(C:\Program Files\Molecular Devices\MultiClamp 700B Commander\3rd Party Support\AxMultiClampMsg)";
+#else
+  const std::string path = R"(C:\Program Files (x86)\Molecular Devices\MultiClamp 700B Commander\3rd Party Support\AxMultiClampMsg)";
+#endif
+
+  const std::string dllHelpMessage = "The Molecular Devices Library \"AxMultiClampMsg.dll\" could not be found in the folder \"" + path + "\".\r" +
+    "Please install the latest version of the Multiclamp Commander Application and restart Igor Pro.";
+
+  if(!SetDllDirectory(path.c_str()))
+  {
+    XOPNotice2(dllHelpMessage.c_str(), 0);
+    SetXOPResult(FAILURE_CREATING_MCC_DLL_HANDLE);
+    return EXIT_FAILURE;
+  }
+
 	HMODULE hLib = LoadLibrary("AxMultiClampMsg.dll");
-	(void)hLib;		// Prevent unused variable compiler warning.
+  if(!hLib)
+  {
+    XOPNotice2(dllHelpMessage.c_str(), 0);
+    SetXOPResult(FAILURE_CREATING_MCC_DLL_HANDLE);
+    return EXIT_FAILURE;
+  }
+
+  // reset DLL search path
+  if(!SetDllDirectory(nullptr))
+  {
+    XOPNotice2(dllHelpMessage.c_str(), 0);
+    SetXOPResult(FAILURE_CREATING_MCC_DLL_HANDLE);
+    return EXIT_FAILURE;
+  }
+
+#define FETCH_AND_SET_ADDRESS(A, B)                                    \
+  B ##_FuncPtr = (B ##_FuncType) GetProcAddress(A, #B);                \
+  if(!(B ##_FuncPtr))                                                  \
+  {                                                                    \
+    XOPNotice2("Could not get the DLL function ptr for " #B ".\r", 0); \
+    SetXOPResult(FAILURE_CREATING_MCC_DLL_HANDLE);                     \
+    return EXIT_FAILURE;                                               \
+  }
+
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_CheckAPIVersion);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_CreateObject);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_DestroyObject);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetTimeOut);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_FindFirstMultiClamp);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_FindNextMultiClamp);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SelectMultiClamp);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetMode);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetMode);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_CheckAPIVersion);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_CreateObject);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_DestroyObject);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetTimeOut);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_FindFirstMultiClamp);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_FindNextMultiClamp);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SelectMultiClamp);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetMode);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetMode);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetModeSwitchEnable);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetModeSwitchEnable);
+
+// The following functions are not supported by the x86 DLL
+#ifdef IGOR64
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetFeedbackResistorVC1);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetFeedbackResistorIC1);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetFeedbackResistorVC2);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetFeedbackResistorIC2);
+#endif
+
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetHoldingEnable);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetHoldingEnable);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetHolding);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetHolding);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetTestSignalEnable);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetTestSignalEnable);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetTestSignalAmplitude);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetTestSignalAmplitude);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetTestSignalFrequency);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetTestSignalFrequency);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_AutoPipetteOffset);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetPipetteOffset);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetPipetteOffset);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetSlowCurrentInjEnable);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetSlowCurrentInjEnable);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetSlowCurrentInjLevel);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetSlowCurrentInjLevel);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetSlowCurrentInjSettlingTime);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetSlowCurrentInjSettlingTime);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetFastCompCap);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetFastCompCap);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetSlowCompCap);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetSlowCompCap);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetFastCompTau);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetFastCompTau);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetSlowCompTau);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetSlowCompTau);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetSlowCompTauX20Enable);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetSlowCompTauX20Enable);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_AutoFastComp);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_AutoSlowComp);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetNeutralizationEnable);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetNeutralizationEnable);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetNeutralizationCap);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetNeutralizationCap);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetWholeCellCompEnable);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetWholeCellCompEnable);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetWholeCellCompCap);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetWholeCellCompCap);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetWholeCellCompResist);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetWholeCellCompResist);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_AutoWholeCellComp);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetRsCompEnable);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetRsCompEnable);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetRsCompBandwidth);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetRsCompBandwidth);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetRsCompCorrection);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetRsCompCorrection);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetRsCompPrediction);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetRsCompPrediction);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetOscKillerEnable);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetOscKillerEnable);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetPrimarySignal);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetPrimarySignal);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetPrimarySignalGain);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetPrimarySignalGain);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetPrimarySignalLPF);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetPrimarySignalLPF);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetPrimarySignalHPF);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetPrimarySignalHPF);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetScopeSignalLPF);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetScopeSignalLPF);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetSecondarySignal);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetSecondarySignal);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetSecondarySignalGain);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetSecondarySignalGain);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetSecondarySignalLPF);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetSecondarySignalLPF);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_BuildErrorText);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetBridgeBalEnable);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetBridgeBalEnable);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_SetBridgeBalResist);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_GetBridgeBalResist);
+  FETCH_AND_SET_ADDRESS(hLib, MCCMSG_AutoBridgeBal);
+
+#undef FETCH_AND_SET_ADDRESS
 
 	// check the API version matches the expected value
-	if (!MCCMSG_CheckAPIVersion(MCCMSG_APIVERSION_STR))
+	if (!MCCMSG_CheckAPIVersion_FuncPtr(MCCMSG_APIVERSION_STR))
 	{
 		SetXOPResult(WRONG_MCC_API_VERSION);
 		return EXIT_FAILURE;
@@ -270,14 +510,12 @@ XOPMain(IORecHandle ioRecHandle)			// The use of XOPMain rather than main means 
 
 	// create DLL handle
 	int nError = MCCMSG_ERROR_NOERROR;
-	s_hMCCmsg = MCCMSG_CreateObject(&nError);
+	s_hMCCmsg = MCCMSG_CreateObject_FuncPtr(&nError);
 	if (!s_hMCCmsg)
 	{
 		SetXOPResult(FAILURE_CREATING_MCC_DLL_HANDLE);
 		return EXIT_FAILURE;
 	}
-
-	return 0;
 
 	SetXOPResult(0);
 	return EXIT_SUCCESS;

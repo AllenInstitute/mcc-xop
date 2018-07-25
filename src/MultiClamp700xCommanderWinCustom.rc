@@ -27,7 +27,7 @@
 1100 STR#					// Custom error messages.
 BEGIN
 	// Symbols from MultiClamp700xCommander.h.
-	"MultiClamp700xCommander requires Igor 8.00 or later.\0",			// OLD_IGOR
+	"MultiClamp700xCommander requires Igor 7.00 or later.\0",			// OLD_IGOR
 	"Unused_1\0",			// UNUSED_!
 	"The API version supported by the AxMultiClampMsg.dll file is not supported by the MultiClamp700xCommander XOP.\0", // WRONG_MCC_API_VERSION
 	"The MultiClamp700xCommander XOP was unable to create a MCC DLL handle.\0", // FAILURE_CREATING_MCC_DLL_HANDLE

@@ -88,20 +88,9 @@ WIN_CUSTOM_RESOURCE = src/MultiClamp700xCommanderWinCustom.rc
 OTHER_FILES += $${WIN_RESOURCE}
 OTHER_FILES += $${WIN_CUSTOM_RESOURCE}
 
-
-# Additional libraries to link. XOP support and Igor libraries
-# are added later.
-QMAKE_LIBDIR += $$quote($$PWD/src/AxMultiClampMsg_SDK)
-LIBS += AxMultiClampMsg.lib
-
-# Copy the AxMultiClampMsg.dll file to the output directory
-# after the link stage is complete.
-QMAKE_POST_LINK += copy /y $${shell_path($$PWD/src/AxMultiClampMsg_SDK)}\\AxMultiClampMsg.dll $${shell_path($$quote($${DESTDIR}))}
-
-
 # These definitions indicate that the XOP supports long wave names.
-RC_DEFINES += XOP_LONG_NAMES_AND_PATHS=1	# For the resource compiler (windows only)
-DEFINES += XOP_LONG_NAMES_AND_PATHS=1		# For the C/C++ compiler.
+# RC_DEFINES += XOP_LONG_NAMES_AND_PATHS=1	# For the resource compiler (windows only)
+# DEFINES += XOP_LONG_NAMES_AND_PATHS=1		# For the C/C++ compiler.
 
 
 #--------------------------------------------------------------------------
@@ -156,26 +145,22 @@ QMAKE_CFLAGS += -Gd
 QMAKE_CXXFLAGS += -Gd
 
 # Use Multi-Threaded runtime library.
-QMAKE_CFLAGS_DEBUG += /MTd
-QMAKE_CXXFLAGS_DEBUG += /MTd
-QMAKE_CFLAGS_DEBUG -= -MDd
-QMAKE_CXXFLAGS_DEBUG -= -MDd
+# QMAKE_CFLAGS_DEBUG += /MTd
+# QMAKE_CXXFLAGS_DEBUG += /MTd
+# QMAKE_CFLAGS_DEBUG -= -MDd
+# QMAKE_CXXFLAGS_DEBUG -= -MDd
+#
+# QMAKE_CFLAGS_RELEASE += /MT
+# QMAKE_CXXFLAGS_RELEASE += /MT
+# QMAKE_CFLAGS_RELEASE -= -MD
+# QMAKE_CXXFLAGS_RELEASE -= -MD
 
-QMAKE_CFLAGS_RELEASE += /MT
-QMAKE_CXXFLAGS_RELEASE += /MT
-QMAKE_CFLAGS_RELEASE -= -MD
-QMAKE_CXXFLAGS_RELEASE -= -MD
-
-# -Zc:strictStrings causes compiler errors with VC2013 and XOP Toolkit 6. It may be fixed in Tookit 7, in which
-# case we could remove the next two lines.
-QMAKE_CFLAGS_RELEASE -= -Zc:strictStrings
-QMAKE_CXXFLAGS_RELEASE -= -Zc:strictStrings
+QMAKE_CFLAGS_RELEASE += /MP /Zi
 
 # Linker flags
 QMAKE_LFLAGS_DEBUG += /NODEFAULTLIB:libcmt	# Using this flag in release mode results in lots of linker errors.
 QMAKE_LFLAGS += /LARGEADDRESSAWARE	# XOP Toolkit documentation says to add this
 QMAKE_LFLAGS += /DYNAMICBASE:NO
-
 
 # External libraries
 QMAKE_LIBDIR += $${XOPSUPPORT_PATH}
@@ -185,13 +170,11 @@ greaterThan(ARCH_IS_64_BIT, 0) {
     # Name of the XOP (without extension)
     TARGET = $${XOP_NAME}64
     LIBS += -lIGOR64
-    LIBS += -lXOPSupportLongNames64
 }
 else {
     # Name of the XOP (without extension)
     TARGET = $${XOP_NAME}
     LIBS += -lIGOR
-    LIBS += -lXOPSupportLongNames
 }
 
 LIBS += version.lib		# Required by XOP toolkit.
